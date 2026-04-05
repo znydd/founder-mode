@@ -17,7 +17,15 @@ export default defineManifest({
   permissions: [
     'sidePanel',
     'contentSettings',
+    'storage',
+    'declarativeNetRequest',
+    'webNavigation',
   ],
+  host_permissions: ['<all_urls>'],
+  background: {
+    service_worker: 'src/background/main.ts',
+    type: 'module' as const,
+  },
   content_scripts: [{
     js: ['src/content/main.tsx'],
     matches: ['https://*/*'],
@@ -29,4 +37,8 @@ export default defineManifest({
     page: 'src/options/index.html',
     open_in_tab: true,
   },
+  web_accessible_resources: [{
+    resources: ['src/blocked/index.html'],
+    matches: ['<all_urls>'],
+  }],
 })
