@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { getBlockedUrls, setBlockedUrls } from '@/lib/storage'
 
 interface AddURLProps {
     onNavigateToRemove: () => void
@@ -16,27 +17,43 @@ export default function AddURL({ onNavigateToRemove }: AddURLProps) {
     const [urls, setUrls] = useState<string[]>([])
     const [error, setError] = useState('')
 
-    const handleAdd = () => {
-        let trimmed = url.trim().replace(/^https?:\/\//, '').toLowerCase()
+    const loadUrls = async () => {
+        const data = await getBlockedUrls()
+        setUrls(data.blockedUrls)
+    }
+
+    useEffect(() => { loadUrls() }, [])
+
+    const handleAdd = async () => {
+        let trimmed = url.trim().replace(/^https?:\/\//, '').replace(/^www\./, '').toLowerCase()
         if (!trimmed) return
         if (!isValidPattern(trimmed)) {
             setError('Enter a valid pattern e.g. youtube.com/shorts/*')
             return
         }
-        if (!trimmed.includes('/')) trimmed = trimmed + '/*'
+        if (!trimmed.endsWith('/*')) {
+            trimmed = trimmed.replace(/\/+$/, '') + '/*'
+        }
         if (urls.includes(trimmed)) {
             setError('This pattern is already in the list')
             return
         }
-        setUrls([...urls, trimmed])
+
+        const success = await setBlockedUrls(trimmed)
+        if (!success) {
+            setError('Failed to save, try again')
+            return
+        }
         setUrl('')
         setError('')
+        await loadUrls()
     }
 
     return (
         <div className="min-h-screen flex flex-col font-mono">
             <div className="flex-1 flex items-start justify-center pt-24">
                 <div className="flex flex-col gap-6 w-120">
+                    <h1 className="text-3xl font-bold text-center">*Founder Mode</h1>
                     <div>
                         <label className="text-base font-medium mb-2 block">Block URL</label>
                         <div className="flex gap-2">
