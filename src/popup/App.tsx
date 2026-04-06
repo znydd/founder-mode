@@ -1,21 +1,15 @@
-import crxLogo from '@/assets/crx.svg'
-import reactLogo from '@/assets/react.svg'
-import viteLogo from '@/assets/vite.svg'
-import HelloWorld from '@/components/HelloWorld'
-
 export default function App() {
+  const openOptions = () => chrome.runtime.openOptionsPage()
+
   return (
-    <div>
-      <a href="https://vite.dev" target="_blank" rel="noreferrer">
-        <img src={viteLogo} className="logo" alt="Vite logo" />
-      </a>
-      <a href="https://reactjs.org/" target="_blank" rel="noreferrer">
-        <img src={reactLogo} className="logo react" alt="React logo" />
-      </a>
-      <a href="https://crxjs.dev/vite-plugin" target="_blank" rel="noreferrer">
-        <img src={crxLogo} className="logo crx" alt="crx logo" />
-      </a>
-      <HelloWorld msg="Vite + React + CRXJS" />
+    <div className="p-4 w-48 font-mono flex flex-col gap-3">
+      <h1 className="text-base font-bold text-center">*Founder Mode</h1>
+      <button
+        onClick={openOptions}
+        className="w-full border border-border rounded px-3 py-2 text-sm hover:bg-muted transition-colors"
+      >
+        Manage URLs
+      </button>
     </div>
   )
 }
