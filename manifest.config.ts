@@ -15,8 +15,6 @@ export default defineManifest({
     default_popup: 'src/popup/index.html',
   },
   permissions: [
-    'sidePanel',
-    'contentSettings',
     'storage',
     'declarativeNetRequest',
     'webNavigation',
@@ -25,13 +23,6 @@ export default defineManifest({
   background: {
     service_worker: 'src/background/main.ts',
     type: 'module' as const,
-  },
-  content_scripts: [{
-    js: ['src/content/main.tsx'],
-    matches: ['https://*/*'],
-  }],
-  side_panel: {
-    default_path: 'src/sidepanel/index.html',
   },
   options_ui: {
     page: 'src/options/index.html',
