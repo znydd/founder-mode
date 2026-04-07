@@ -13,6 +13,13 @@ export default defineConfig({
       '@': `${path.resolve(__dirname, 'src')}`,
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        blocked: path.resolve(__dirname, 'src/blocked/index.html'),
+      },
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
