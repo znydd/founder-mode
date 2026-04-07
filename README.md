@@ -1,30 +1,51 @@
-# React + Vite + CRXJS
+![Founder Mode](public/Banner.png)
 
-This template helps you quickly start developing Chrome extensions with React, TypeScript and Vite. It includes the CRXJS Vite plugin for seamless Chrome extension development.
+# \*Founder Mode
 
-## Features
+A Chrome extension that blocks distracting websites so you can stay focused and get things done.
 
-- React with TypeScript
-- TypeScript support
-- Vite build tool
-- CRXJS Vite plugin integration
-- Chrome extension manifest configuration
+## What it does
 
-## Quick Start
+- Block any URL pattern (e.g. `youtube.com/shorts/*`, `facebook.com/*`)
+- Redirects blocked pages to a clean blocked screen
+- Intercepts SPA navigation (no refresh needed on sites like YouTube or Facebook)
+- Friction flow before unblocking — makes you think twice before removing a URL
 
-1. Install dependencies:
+## Usage
+
+1. Click the extension icon to open the popup
+2. Click **Manage URLs** to open the options page
+3. Enter a URL pattern to block (e.g. `youtube.com/shorts/*`) and press **+** or Enter
+4. To remove a blocked URL, click **Remove URL** — you'll go through a short friction flow first
+
+## URL Pattern Examples
+
+| Pattern | Blocks |
+|---|---|
+| `facebook.com/*` | All of Facebook |
+| `youtube.com/shorts/*` | YouTube Shorts only |
+| `twitter.com/*` | All of Twitter/X |
+| `reddit.com/r/*/new/*` | Specific subreddit feeds |
+
+## Install
+
+Get it from the [Chrome Web Store](https://chromewebstore.google.com) — search for **Founder Mode**.
+
+Or build it yourself:
+
+1. Clone the repo and install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Start development server:
+2. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-3. Open Chrome and navigate to `chrome://extensions/`, enable "Developer mode", and load the unpacked extension from the `dist` directory.
+3. Go to `chrome://extensions/`, enable **Developer mode**, click **Load unpacked**, and select the `dist` folder.
 
 4. Build for production:
 
@@ -32,21 +53,4 @@ npm run dev
 npm run build
 ```
 
-## Project Structure
-
-- `src/popup/` - Extension popup UI
-- `src/content/` - Content scripts
-- `manifest.config.ts` - Chrome extension manifest configuration
-
-## Documentation
-
-- [React Documentation](https://reactjs.org/)
-- [Vite Documentation](https://vitejs.dev/)
-- [CRXJS Documentation](https://crxjs.dev/vite-plugin)
-
-## Chrome Extension Development Notes
-
-- Use `manifest.config.ts` to configure your extension
-- The CRXJS plugin automatically handles manifest generation
-- Content scripts should be placed in `src/content/`
-- Popup UI should be placed in `src/popup/`
+The packaged `.zip` will be output to the `release/` folder.
