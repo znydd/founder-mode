@@ -3,7 +3,7 @@ import pkg from './package.json'
 
 export default defineManifest({
   manifest_version: 3,
-  name: pkg.name,
+  name: 'Founder Mode',
   version: pkg.version,
   icons: {
     16: 'public/icon16.png',
