@@ -51,10 +51,22 @@ function patternToRegex(pattern: string): RegExp {
 
 async function checkSpaNavigation(tabId: number, url: string) {
     const { blockedUrls } = await getBlockedUrls()
+
     for (const pattern of blockedUrls) {
         if (patternToRegex(pattern).test(url)) {
-            const blockedPage = chrome.runtime.getURL(`src/blocked/index.html?url=${encodeURIComponent(pattern)}`)
-            chrome.tabs.update(tabId, { url: blockedPage })
+            const blockedPage = chrome.runtime.getURL(
+                `src/blocked/index.html?url=${encodeURIComponent(pattern)}`
+            )
+
+            await chrome.scripting.executeScript({
+                target: { tabId },
+                func: (nextUrl: string) => {
+                    if (window.location.href !== nextUrl) {
+                        window.location.replace(nextUrl)
+                    }
+                },
+                args: [blockedPage],
+            })
             return
         }
     }
