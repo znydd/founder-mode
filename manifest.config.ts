@@ -4,6 +4,7 @@ import pkg from './package.json'
 export default defineManifest({
   manifest_version: 3,
   name: 'Founder Mode',
+  description: 'A Chrome extension to block distracting websites and help you stay focused.',
   version: pkg.version,
   icons: {
     16: 'public/icon16.png',
